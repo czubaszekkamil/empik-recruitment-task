@@ -4,6 +4,7 @@ import com.empik.githubadapter.github.dto.GitHubUserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ class GithubApiServiceImpl implements GithubApiService {
     @Value("${github.url}")
     private String githubUrl;
 
+    @Cacheable("github-users")
     @Override
     public Optional<GitHubUserDto> findByLogin(String login) {
         String resultUrl = prepareUrl(login);
