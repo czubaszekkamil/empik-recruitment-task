@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
+import static com.empik.githubadapter.empik.service.CacheService.GITHUB_USERS_CACHE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
@@ -26,7 +27,7 @@ class GithubApiServiceImpl implements GithubApiService {
     @Value("${github.url}")
     private String githubUrl;
 
-    @Cacheable("github-users")
+    @Cacheable(GITHUB_USERS_CACHE)
     @Override
     public Optional<GitHubUserDto> findByLogin(String login) {
         String resultUrl = prepareUrl(login);

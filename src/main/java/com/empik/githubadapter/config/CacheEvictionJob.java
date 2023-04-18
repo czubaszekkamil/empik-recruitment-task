@@ -1,30 +1,24 @@
 package com.empik.githubadapter.config;
 
+import com.empik.githubadapter.empik.service.CacheService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import static com.empik.githubadapter.empik.service.CacheService.GITHUB_USERS_CACHE;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 class CacheEvictionJob {
 
-    private final CacheManager cacheManager;
+    private final CacheService cacheService;
 
     @Scheduled(fixedRate = 60000, initialDelay = 60000)
-    public void evictAllCaches() {
+    public void evictGithubCache() {
         log.info("Czyszczenie cache");
 
-        cacheManager.getCacheNames()
-                    .forEach(cacheName -> evictCache(Optional.ofNullable(cacheManager.getCache(cacheName))));
-    }
-
-    private void evictCache(Optional<Cache> cacheOpt) {
-        cacheOpt.ifPresent(Cache::clear);
+        cacheService.clearCache(GITHUB_USERS_CACHE);
     }
 }

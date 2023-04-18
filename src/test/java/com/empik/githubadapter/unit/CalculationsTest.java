@@ -1,4 +1,4 @@
-package com.empik.githubadapter.junit;
+package com.empik.githubadapter.unit;
 
 import com.empik.githubadapter.empik.dto.Calculations;
 import org.junit.jupiter.params.ParameterizedTest;

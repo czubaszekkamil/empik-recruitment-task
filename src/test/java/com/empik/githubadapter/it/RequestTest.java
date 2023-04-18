@@ -99,7 +99,7 @@ class RequestTest extends AbstractTestBase {
     }
 
     private void mockGithubApiForExisting(String login) {
-        mockServer.expect(ExpectedCount.manyTimes(),
+        mockServer.expect(ExpectedCount.once(),
                           requestTo(githubUrl.concat(login)))
                   .andExpect(method(HttpMethod.GET))
                   .andRespond(withStatus(HttpStatus.OK)
@@ -109,7 +109,7 @@ class RequestTest extends AbstractTestBase {
     }
 
     private void mockGithubApiForNonExisting(String login) {
-        mockServer.expect(ExpectedCount.manyTimes(),
+        mockServer.expect(ExpectedCount.once(),
                           requestTo(githubUrl.concat(login)))
                   .andExpect(method(HttpMethod.GET))
                   .andRespond((response) -> {
