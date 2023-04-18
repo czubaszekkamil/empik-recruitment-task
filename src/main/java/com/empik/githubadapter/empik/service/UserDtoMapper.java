@@ -15,7 +15,7 @@ class UserDtoMapper {
                           gitHubUserDto.getCreated_at(),
                           Calculations.of(gitHubUserDto.getFollowers(),
                                           gitHubUserDto.getPublic_repos())
-                                      .getResult()
+                                      .calculate()
         );
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class RequestService {
+public class RequestService {
 
     private final RequestRepository requestRepository;
 

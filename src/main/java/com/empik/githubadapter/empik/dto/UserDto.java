@@ -11,5 +11,5 @@ public class UserDto {
     String type;
     String avatarUrl;
     String createdAt;
-    Double calculations;
+    double calculations;
 }

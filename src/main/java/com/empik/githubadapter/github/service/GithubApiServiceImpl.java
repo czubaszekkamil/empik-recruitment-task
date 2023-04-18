@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Service
 @Component
 @RequiredArgsConstructor
@@ -31,7 +33,11 @@ class GithubApiServiceImpl implements GithubApiService {
             ResponseEntity<GitHubUserDto> response = restTemplate.getForEntity(resultUrl, GitHubUserDto.class);
             return Optional.ofNullable(response.getBody());
         } catch (HttpClientErrorException exception) {
-            log.error(exception.getMessage(), exception);
+            if (exception.getStatusCode().isSameCodeAs(NOT_FOUND)) {
+                log.info("Nie znaleziono użytkownika z loginem: {}", login);
+            } else {
+                log.error(exception.getMessage(), exception);
+            }
         }
 
         return Optional.empty();
